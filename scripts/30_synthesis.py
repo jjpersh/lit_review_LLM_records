@@ -169,11 +169,49 @@ open(f'{OUT}/tables.md', 'w', encoding='utf-8').write('\n'.join(md))
 BLUE, ORANGE, INK, INK2, GRID, SURF = '#2a78d6', '#eb6834', '#0b0b0b', '#52514e', '#e4e3df', '#fcfcfb'
 plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9, 'axes.edgecolor': GRID, 'axes.labelcolor': INK2,
                      'xtick.color': INK2, 'ytick.color': INK, 'figure.facecolor': SURF, 'axes.facecolor': SURF})
-fig, ax = plt.subplots(figsize=(8.8, 5.8), dpi=200)
+# 2026-11-17 (author request): grouped process systems first, then adjacent domains; within each group by evidence
+# (simulation, offline data, laboratory hardware, operating plant); reference numbers in labels; range shown in the legend.
+import re as _re  # noqa: E402
+from matplotlib.patches import Patch as _Patch  # noqa: E402
+_REF = {}
+for _line in open('draft/_work/citation_map_current.tsv', encoding='utf-8'):
+    _p = _line.rstrip('\n').split('\t')
+    if len(_p) >= 3 and _p[0].startswith('['):
+        _REF.setdefault(_p[2].split(' ')[0], _p[0])
+_SUR = {'Arif': 'T1042', 'Wen': 'S203', 'Rojas-Ordoñez': 'S048', 'Ibáñez-Espinel': 'S178', 'Vyas 2026': 'S022',
+        'Schall': 'S030', 'González-Potes': 'S156', 'Hidalgo-Castelo': 'S028', 'Pershing': 'S262', 'Khan': 'T1046',
+        'Vyas 2025': 'S037', 'Zhang': 'S041', 'Nozari': 'S016', 'Nogueira': 'S017', 'Rosenthal': 'S032',
+        'He': 'S026', 'Song': 'S031', 'Wang': 'S019', 'Raghavan': 'T0615', 'Caccia': 'T1044'}
+_CATN = ['simulation', 'offline data', 'laboratory hardware', 'operating plant']
+
+
+def _cat(lab):
+    l = lab.lower()
+    return 3 if '(plant' in l else 2 if ('hardware' in l or 'tclab' in l) else 1 if 'offline' in l else 0
+
+
+def _label(lab):
+    head, task = lab.split(': ', 1)
+    task = _re.sub(r'\s*\((?:sim|hardware|plant|offline)(?:; adjacent)?\)', '', task)
+    rid = _SUR.get(head) or _SUR.get(head.split(' ')[0])
+    return f"{head} {_REF.get(rid, '')}: {task}".replace('  ', ' ')
+
+
+_items = []   # top to bottom: ('head', text, None) or ('row', label, tim_tuple, adjacent)
+for _adj in (False, True):
+    for _c in range(4):
+        grp = [t for t in TIM if ('adjacent' in t[0]) == _adj and _cat(t[0]) == _c]
+        if grp:
+            _items.append(('head', f"{'Adjacent domains' if _adj else 'Process systems'}: {_CATN[_c]}", None, _adj))
+            _items += [('row', _label(t[0]), t, _adj) for t in grp]
+fig, ax = plt.subplots(figsize=(8.8, 0.26 * len(_items) + 1.3), dpi=200)
 ax.axvspan(60, 600, color='#cde2fb', alpha=0.6, lw=0, zorder=0)
-ax.text(190, len(TIM) - 0.35, 'slow supervisory\nrange (1-10 min)', ha='center', va='top', fontsize=7.5, color=INK2)
-for i, (lab, loop, lat, note) in enumerate(reversed(TIM)):
+for i, (kind, lab, t, adj) in enumerate(reversed(_items)):
     y = i
+    if kind == 'head':
+        ax.axhspan(y - 0.5, y + 0.5, color='#f0efeb', lw=0, zorder=1)
+        continue
+    _, loop, lat, note = t
     if lat:
         ax.plot([lat[0], lat[1]], [y, y], color=ORANGE, lw=4, solid_capstyle='round', zorder=3)
         if lat[0] == lat[1]:
@@ -186,12 +224,15 @@ for i, (lab, loop, lat, note) in enumerate(reversed(TIM)):
     if note:
         xs = max([x for x in (lat or ())] + ([*loop] if isinstance(loop, tuple) else [loop] if loop else []))
         ax.text(xs * 1.6, y, note, va='center', fontsize=7.5, color=INK2)
-ax.set_yticks(range(len(TIM)))
-ax.set_yticklabels([t[0] for t in reversed(TIM)])
-for tl in ax.get_yticklabels():
-    if 'adjacent' in tl.get_text():
+ax.set_yticks(range(len(_items)))
+ax.set_yticklabels([it[1] for it in reversed(_items)])
+for tl, it in zip(ax.get_yticklabels(), reversed(_items)):
+    if it[0] == 'head':
+        tl.set_weight('bold')
+    elif it[3]:
         tl.set_color(INK2)
         tl.set_style('italic')
+ax.set_ylim(-0.6, len(_items) - 0.4)
 ax.set_xscale('log')
 ax.set_xlim(1e-3, 1e5)
 ax.set_xlabel('Time (s, log scale)')
@@ -200,10 +241,11 @@ for s in ('top', 'right', 'left'):
     ax.spines[s].set_visible(False)
 ax.tick_params(axis='y', length=0)
 ax.legend(handles=[Line2D([], [], marker='o', color=BLUE, lw=0, ms=8, label='Control loop or update period'),
-                   Line2D([], [], color=ORANGE, lw=4, label='Reported LLM response time')],
-          loc='upper center', bbox_to_anchor=(0.5, -0.11), ncol=2, frameon=False, fontsize=8)
-fig.tight_layout(rect=(0, 0, 1, 0.96))
-fig.text(0.01, 0.99, 'LLM response time against loop timing, where reported (italic grey: adjacent domain)', fontsize=10, color=INK, va='top')  # Stage C: title no longer clipped
+                   Line2D([], [], color=ORANGE, lw=4, label='Reported LLM response time'),
+                   _Patch(fc='#cde2fb', alpha=0.6, lw=0, label='Slow supervisory range (1–10 min)')],
+          loc='upper center', bbox_to_anchor=(0.4, -0.06), ncol=3, frameon=False, fontsize=7.5, columnspacing=1.0, handlelength=1.6)
+fig.tight_layout(rect=(0, 0, 1, 0.975))
+fig.text(0.01, 0.995, 'LLM response time against loop timing, where reported', fontsize=10, color=INK, va='top')
 fig.savefig(f'{OUT}/fig1_timescale.png', facecolor=SURF)
 fig.savefig(f'{OUT}/fig1_timescale.svg', facecolor=SURF)
 plt.close(fig)

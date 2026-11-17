@@ -66,9 +66,10 @@ proc = [r for r in rows if r['process']]
 md = []
 
 
-def table(header, data):
+def table(header, data, widths=None):
+    """widths: relative column widths (pandoc reads them from the dashes of the separator row)."""
     md.append('| ' + ' | '.join(header) + ' |')
-    md.append('|' + '---|' * len(header))
+    md.append('|' + ''.join('-' * max(3, w) + '|' for w in widths) if widths else '|' + '---|' * len(header))
     for d in data:
         md.append('| ' + ' | '.join(str(x) for x in d) + ' |')
     md.append('')
@@ -100,19 +101,35 @@ bypaper = collections.OrderedDict()
 for r in sorted(direct, key=lambda r: (not r['process'], r['study'])):
     bypaper.setdefault(r['rec_id'], []).append(r)
 md += [f'## Table S6. Head-to-head comparisons by paper ({len(direct)} direct comparisons from {len(bypaper)} papers)', '']
+# 2026-11-17 (author request): four readable columns, short comparator names, one result phrase, grouped by domain.
+SHORT_COMP = {
+    'S193': 'Numerical rule on the same data', 'S178': 'IPOPT least squares', 'S036': 'MPC (tuning not reported)',
+    'S180': 'Published human-built model', 'S016': 'Deterministic MPC; same framework without the LLM',
+    'S020': 'PI, LQI and MPC; same supervisor without the LLM', 'S048': 'The same relay rule in code',
+    'S032': 'Tuned MPC; PID alone', 'S002': 'IMC tuning', 'S195': 'Relay auto-tuning, VRFT, DE, BO, median rule',
+    'S037': 'PID (tuning not reported)', 'S203': 'PID (tuning not reported)', 'S033': 'PID tuned with MATLAB PID Tuner',
+    'S041': 'DTW similarity; online model update',
+    'S205': 'CC-CV charging rule; CMA-ES', 'S026': 'Feedback control, RL, MPC-MILP',
+    'T0779': 'Single-mode designs; Bayesian optimization', 'T0665': 'Keyword retrieval with templates',
+    'S007': 'LQR; MATLAB PID Tuner', 'S017': 'SIMC-tuned PI selector control', 'T0615': 'Keyword parser; price-aware rule',
+    'S019': 'The expert rule table it imitates', 'T0532': 'MPC without forecasts', 'T1053': 'One hand tuning'}
+RES_LAB = {'N': 'non-LLM better', 'T': 'tie', 'M': 'mixed', 'L': 'LLM better', 'Q': 'not quantified'}
 s6 = []
-for rid, g in bypaper.items():
-    comps = []
-    for r in g:
-        for c in T5[r['key']][1].split('; '):
-            if c not in comps:
-                comps.append(c)
-    cc = collections.Counter(CODE[r['m_h2h']] for r in g)
-    s6.append([f"{g[0]['study']} {g[0]['cite']}", 'P' if g[0]['process'] else 'A', g[0]['evidence'], '; '.join(comps),
-               len(g)] + [cc[x] or '·' for x in 'NTMLQ'])
-table(['Study', 'P/A', 'Evid.', 'Non-LLM comparator', 'n', 'N', 'T', 'M', 'L', 'Q'], s6)
-md += ['P process system, A adjacent domain. Evid. evidence level of the first compared setup. n direct comparisons '
-       '(tested setups). N non-LLM better, T tie, M mixed, L LLM better, Q not quantified.', '']
+for proc_grp, head_txt in ((True, '**Process systems**'), (False, '**Adjacent domains**')):
+    s6.append([head_txt, '', '', ''])
+    for rid, g in bypaper.items():
+        if g[0]['process'] != proc_grp:
+            continue
+        assert rid in SHORT_COMP, f'Table S6: add a short comparator for {rid}'
+        cc = collections.Counter(CODE[r['m_h2h']] for r in g)
+        res = ', '.join(f'{RES_LAB[x]} {cc[x]}' for x in 'NTMLQ' if cc[x])
+        s6.append([f"{g[0]['study']} {g[0]['cite']}", SHORT_COMP[rid], len(g), res[0].upper() + res[1:]])
+table(['Study', 'Non-LLM comparator', 'n', 'Result'], s6, widths=[26, 40, 5, 29])
+md += ['n: direct comparisons (tested setups) in the paper. Result: comparisons in each class. Abbreviations: BO Bayesian '
+       'optimization; CC-CV constant current, constant voltage; CMA-ES covariance matrix adaptation evolution strategy; DE '
+       'differential evolution; DTW dynamic time warping; IMC internal model control; LQI linear quadratic integral; LQR '
+       'linear quadratic regulator; MILP mixed-integer linear programming; RL reinforcement learning; SIMC Skogestad IMC '
+       'tuning; VRFT virtual reference feedback tuning.', '']
 cnt = collections.Counter(r['m_h2h'] for r in direct)
 pcnt = collections.Counter(r['m_h2h'] for r in direct if r['process'])
 md += ['Direct comparisons, all: ' + ', '.join(f'{CLASS[c]} {cnt[c]}' for c in order[:-1]) + f' (n = {len(direct)}).',
@@ -264,12 +281,17 @@ for rid, g in by.items():
         does = T5[c1g[0]['key']][0] if c1g else g[0]['setup']
         comp = '; '.join(dict.fromkeys(T5[r['key']][1] for r in c1g)) if c1g else 'None (no non-LLM comparator)'
         res = T5[c1g[0]['key']][2] if c1g else g[0]['key_result']
-    s7.append([f"{g[0]['study']} {g[0]['cite']}", 'P' if g[0]['process'] else 'A', trim(plant, 14), trim(does, 18),
-               trim(comp, 14), trim(res, 26), f"{ev} ({len(g)})"])
+    s7.append((g[0]['process'], [f"{g[0]['study']} {g[0]['cite']}", trim(plant, 10), trim(does, 16), trim(res, 24),
+                                 f"{ev} ({len(g)})"]))
+# 2026-11-17 (author request): fewer columns (the comparator is in Table S6), grouped by domain, on a landscape page.
+s7_rows = []
+for proc_grp, head_txt in ((True, '**Process systems**'), (False, '**Adjacent domains**')):
+    s7_rows.append([head_txt, '', '', '', ''])
+    s7_rows += [row for p, row in s7 if p == proc_grp]
 md += [f'## Table S7. Study summary, one row per graded paper (n = {len(by)})', '']
-table(['Study', 'P/A', 'Plant', 'What the LLM does', 'Comparator', 'Main result', 'Evidence (setups)'], s7)
-md += ['P process system, A adjacent domain. Evidence: E1 simulation, E2 benchmark or offline data, E3 laboratory hardware, '
-       'E5 operating plant; the number of graded setups in brackets. Wen et al. (water tank) and Wen and Sajid report the same '
+table(['Study', 'Plant', 'What the LLM does', 'Main result', 'Evidence (setups)'], s7_rows, widths=[17, 19, 26, 30, 8])
+md += ['Evidence: E1 simulation, E2 benchmark or offline data, E3 laboratory hardware, E5 operating plant; the number of graded '
+       'setups in brackets. Comparators are listed in Table S6. Wen et al. (water tank) and Wen and Sajid report the same '
        'water-tank experiment; it is counted once.', '']
 
 open('synthesis/manuscript_tables.md', 'w', encoding='utf-8').write('\n'.join(md))

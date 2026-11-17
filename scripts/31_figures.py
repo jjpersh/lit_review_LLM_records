@@ -143,41 +143,63 @@ ax.text(LEFT, -0.6, 'One box per paper and layer; one square per tested setup, c
         fontsize=7.5, color=INK2, va='top')
 save(fig, 'fig_hierarchy')
 
-# ---- Fig: head-to-head ----------------------------------------------------------------------
-_POS = {'nonllm': -1, 'tie': 0, 'mixed': 0, 'llm': 1, 'nq': None}
-_hh = sorted([r for r in rows if r['m_h2h'] not in (None, 'gate')],
-             key=lambda r: (_POS[r['m_h2h']] if _POS[r['m_h2h']] is not None else 2, r['m_label']))
-H2H = [(r['m_label'] + ('' if r['process'] else ' *'), _POS[r['m_h2h']], r['m_h2h_txt'].split(';')[0].replace('$', r'\$')) for r in _hh]
-import textwrap as _tw
-_wrap = lambda t: '\n'.join(_tw.wrap(t, 58))
-fig, ax = plt.subplots(figsize=(8.0, 0.185 * len(H2H) + 1.3))  # Stage C: near printed width so labels stay readable
-n = len(H2H)
-for i, (lab, pos, note) in enumerate(H2H):
+# ---- Fig E: head-to-head, one row per paper (2026-11-17) -------------------------------------
+# Author request: less text, readable size, reference numbers so each example can be found in Table S6.
+REFNUM = {}
+for _line in open('draft/_work/citation_map_current.tsv', encoding='utf-8'):
+    _p = _line.rstrip('\n').split('\t')
+    if len(_p) >= 3 and _p[0].startswith('['):
+        REFNUM.setdefault(_p[2].split(' ')[0], _p[0])   # rec_id -> '[n]'
+_COLS = ['nonllm', 'tie', 'mixed', 'llm', 'nq']
+_CLAB = ['Non-LLM\nbetter', 'Tie', 'Mixed', 'LLM\nbetter', 'Not\nquantified']
+_SCORE = {'nonllm': -1, 'tie': 0, 'mixed': 0, 'llm': 1, 'nq': 0}
+_byp = collections.OrderedDict()
+for r in rows:
+    if r['m_h2h'] not in (None, 'gate'):
+        _byp.setdefault(r['rec_id'], []).append(r)
+_items = []
+for _proc, _head in ((True, 'Process systems'), (False, 'Adjacent domains')):
+    grp = [(rid, g) for rid, g in _byp.items() if g[0]['process'] == _proc]
+    grp.sort(key=lambda x: (sum(_SCORE[r['m_h2h']] for r in x[1]) / len(x[1]), x[1][0]['m_label']))
+    _items.append(('head', f"{_head} ({sum(len(g) for _, g in grp)} comparisons, {len(grp)} papers)", None))
+    for rid, g in grp:
+        _items.append(('paper', f"{g[0]['m_label'].split(' ')[0]} {scr[rid]['year']} {REFNUM.get(rid, '')}".strip(),
+                       collections.Counter(r['m_h2h'] for r in g)))
+n = len(_items)
+fig, ax = plt.subplots(figsize=(6.4, 0.27 * n + 1.5))
+for i, (kind, lab, cnt) in enumerate(_items):
     y = n - 1 - i
-    ax.axhline(y, color=GRID, lw=0.6, zorder=0)
-    if pos is None:
-        ax.plot(0, y, 'o', ms=6.5, mfc=SURF, mec=MUTED, mew=1.4, zorder=3)
-        ax.text(0.12, y, _wrap(note), va='center', fontsize=6.6, color=INK2, linespacing=0.95)
-    else:
-        ax.plot(pos, y, 'o', ms=6.5, color=BLUE, mec=SURF, mew=1.5, zorder=3)
-        ax.text(pos + (0.12 if pos < 1 else -0.12), y, _wrap(note) if pos == 0 else note, va='center', ha='left' if pos < 1 else 'right', fontsize=6.6, color=INK2, linespacing=0.95)
+    if kind == 'head':
+        ax.axhspan(y - 0.5, y + 0.5, color='#f0efeb', lw=0, zorder=0)
+        continue
+    ax.axhline(y, color=GRID, lw=0.5, zorder=0)
+    for x, c in enumerate(_COLS):
+        if cnt[c]:
+            hollow = c == 'nq'
+            ax.scatter(x, y, s=70 + 55 * (cnt[c] - 1), color=SURF if hollow else BLUE, edgecolors=MUTED if hollow else SURF,
+                       linewidths=1.4, zorder=3)
+            if cnt[c] > 1:
+                ax.text(x, y, str(cnt[c]), ha='center', va='center', fontsize=7.5, color='white', weight='bold', zorder=4)
 ax.set_yticks(range(n))
-ax.set_yticklabels([h[0] for h in reversed(H2H)], fontsize=7.5)
-ax.set_xticks([-1, 0, 1])
-ax.set_xticklabels(['Non-LLM\nbetter', 'Tie or mixed', 'LLM better'], fontsize=9)
-ax.set_xlim(-1.3, 1.3)
-ax.set_ylim(-0.7, n - 0.3)
-for x in (-0.5, 0.5):
+ax.set_yticklabels([lab for _, lab, _ in reversed(_items)], fontsize=9)
+for tl, (kind, _, _) in zip(ax.get_yticklabels(), reversed(_items)):
+    if kind == 'head':
+        tl.set_weight('bold')
+ax.set_xticks(range(len(_COLS)))
+ax.set_xticklabels(_CLAB, fontsize=9)
+ax.xaxis.tick_top()
+ax.set_xlim(-0.6, len(_COLS) - 0.4)
+ax.set_ylim(-0.6, n - 0.4)
+for x in (0.5, 2.5, 3.5):
     ax.axvline(x, color=GRID, lw=1, zorder=0)
 for s in ('top', 'right', 'left', 'bottom'):
     ax.spines[s].set_visible(False)
 ax.tick_params(length=0)
-ax.legend(handles=[Line2D([], [], marker='o', lw=0, ms=9, color=BLUE, label='Result reported'),
-                   Line2D([], [], marker='o', lw=0, ms=9, mfc=SURF, mec=MUTED, mew=1.8, label='Comparison not quantified')],
-          loc='upper left', bbox_to_anchor=(0.0, -0.045), ncol=2, frameon=False, fontsize=8)
-fig.tight_layout(rect=(0, 0, 1, 0.975))
-fig.text(0.01, 0.995, f'Head-to-head: LLM against a non-LLM method ({len(H2H)} setups; * adjacent domain)', fontsize=10, color=INK, va='top')
+fig.text(0.01, 0.006, 'One row per paper; dot size and number give the comparisons (tested setups) in each class. '
+         'Reference numbers as in the text; details in Table S6.', fontsize=7.5, color=INK2, va='bottom', wrap=True)
+fig.tight_layout(rect=(0, 0.035, 1, 1))
 save(fig, 'fig_head_to_head')
+
 
 # ---- Fig: domain (process type) x theme, setups; second panel operation x theme -------------
 DOMS = DOMAINS
