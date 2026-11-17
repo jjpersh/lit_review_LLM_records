@@ -1,6 +1,6 @@
 # Records and data: LLMs as an interface to process control (focused critical review)
 
-This repository holds the records behind the review *Large language models as an interface to process control: what has been shown, and what has not*: the protocol, searches, screening decisions, the per-paper full-read records, the extraction table, the grade checks and the scripts that produce every table and figure. It lets a reader trace any count in the manuscript to the setups behind it, and any grade to a page of the source paper.
+This repository holds the records behind the review *Interface, not controller: a critical review of large language models in process control*: the protocol, searches, screening decisions, the per-paper full-read records, the extraction table, the grade checks and the scripts that produce every table and figure. It lets a reader trace any count in the manuscript to the setups behind it, and any grade to a page of the source paper.
 
 It does not contain the papers themselves or their full texts (copyright), or the manuscript.
 
