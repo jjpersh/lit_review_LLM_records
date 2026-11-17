@@ -1,23 +1,23 @@
 # Synthesis tables
 
-Source: extraction/extraction.csv (107 graded setups; 105 independent setups after counting 2 duplicate-experiment setups once (S203.2 = S033.1, S203.3 = S033.2); 47 papers; every paper read in full). Process systems only (sensitivity): 57 setups from 28 papers. Counts are per tested setup unless stated.
+Source: extraction/extraction.csv (106 graded setups; 104 independent setups after counting 2 duplicate-experiment setups once (S203.2 = S033.1, S203.3 = S033.2); 47 papers; every paper read in full). Process systems only (sensitivity): 56 setups from 28 papers. Counts are per tested setup unless stated.
 
 ## Table 0. Headline counts: all graded setups and process systems only
 
 | Count | All graded | Process systems only |
 |---|---|---|
-| Setups | 105 | 57 |
+| Setups | 104 | 56 |
 | Papers | 47 | 28 |
 | E1 | 76 | 42 |
 | E2 | 14 | 9 |
-| E3 | 13 | 4 |
+| E3 | 12 | 3 |
 | E4 | 0 | 0 |
 | E5 | 2 | 2 |
 | Act | 15 | 7 |
 | Succeeded | 37 | 17 |
 | Conditional | 51 | 28 |
 | Failed | 12 | 10 |
-| Not shown | 5 | 2 |
+| Not shown | 4 | 1 |
 | C1 = Y | 50 | 29 |
 | Direct LLM vs non-LLM | 49 | 28 |
 | Non-LLM better | 17 | 13 |
@@ -27,7 +27,7 @@ Source: extraction/extraction.csv (107 graded setups; 105 independent setups aft
 | Not quantified | 2 | 1 |
 | C6 = Y | 29 | 18 |
 | Safeguard described | 54 | 29 |
-| Real time on hardware or plant | 15 | 6 |
+| Real time on hardware or plant | 14 | 5 |
 
 Adjacent (excluded from the process-only column): robotics 7; motor drive 5; greenhouse 5; barn climate 4; mechatronic benchmark 3; building/thermal energy 2; battery charging 2; vehicle 2; home energy 2; inventory management 2; water reservoir network 2; marine vehicle 2; mechanical (crane) 2; traffic 1; grid / building energy 1; abstract symbolic planning 1; discrete manufacturing automation 1; discrete manufacturing 1; manufacturing machine HMI 1; manufacturing robotics 1; building energy 1.
 
@@ -35,27 +35,27 @@ Adjacent (excluded from the process-only column): robotics 7; motor drive 5; gre
 
 | Authority | E0 | E1 | E2 | E3 | E4 | E5 | Total |
 |---|---|---|---|---|---|---|---|
-| Advise | · | 3 | 5 | 2 | · | 2 | 12 |
+| Advise | · | 3 | 5 | 1 | · | 2 | 11 |
 | Propose | · | 25 | 6 | 1 | · | · | 32 |
 | Set targets | · | 39 | 2 | 5 | · | · | 46 |
 | Act | · | 9 | 1 | 5 | · | · | 15 |
-| **Total** | · | 76 | 14 | 13 | · | 2 | 105 |
+| **Total** | · | 76 | 14 | 12 | · | 2 | 104 |
 
 ## Table 2. Outcome by authority (setups)
 
 | Authority | Succeeded | Conditional | Failed | Not shown | Total |
 |---|---|---|---|---|---|
-| Advise | 3 | 2 | 3 | 4 | 12 |
+| Advise | 3 | 2 | 3 | 3 | 11 |
 | Propose | 12 | 18 | 2 | · | 32 |
 | Set targets | 18 | 23 | 4 | 1 | 46 |
 | Act | 4 | 8 | 3 | · | 15 |
-| **Total** | 37 | 51 | 12 | 5 | 105 |
+| **Total** | 37 | 51 | 12 | 4 | 104 |
 
 ## Table 3. Outcome by theme (setups)
 
 | Theme | Succeeded | Conditional | Failed | Not shown | Total | Papers |
 |---|---|---|---|---|---|---|
-| Language to MPC or tuning | 11 | 28 | 3 | 3 | 45 | 17 |
+| Language to MPC or tuning | 11 | 28 | 3 | 2 | 44 | 17 |
 | LLM in or above the loop | 9 | 11 | 6 | · | 26 | 12 |
 | LLM-facilitated hybrid control | 6 | 2 | · | 1 | 9 | 4 |
 | SCADA, MCP and OPC integration | 9 | 4 | 1 | 1 | 15 | 9 |
@@ -65,7 +65,7 @@ Adjacent (excluded from the process-only column): robotics 7; motor drive 5; gre
 
 | Layer | Succeeded | Conditional | Failed | Not shown | Total | Process only |
 |---|---|---|---|---|---|---|
-| operator | 6 | 6 | 1 | 4 | 17 | 9 |
+| operator | 6 | 6 | 1 | 3 | 16 | 8 |
 | design | 12 | 13 | 4 | · | 29 | 19 |
 | supervisory | 12 | 24 | 4 | 1 | 41 | 21 |
 | actuation | 7 | 8 | 3 | · | 18 | 8 |
@@ -76,13 +76,13 @@ C1 right comparator · C2 control metrics · C3 off-nominal · C4 repeatable · 
 
 | Theme | n | C1 | C2 | C3 | C4 | C5 | C6 |
 |---|---|---|---|---|---|---|---|
-| Language to MPC or tuning | 45 | 44% | 69% | 29% | 60% | 51% | 13% |
+| Language to MPC or tuning | 44 | 45% | 70% | 30% | 61% | 52% | 14% |
 | LLM in or above the loop | 26 | 69% | 85% | 65% | 42% | 58% | 38% |
 | LLM-facilitated hybrid control | 9 | 100% | 89% | 67% | 44% | 11% | 0% |
 | SCADA, MCP and OPC integration | 15 | 20% | 40% | 60% | 47% | 60% | 47% |
 | Recovery and safeguards | 10 | 0% | 50% | 100% | 80% | 100% | 60% |
-| **All setups** | 105 | 48% | 69% | 52% | 54% | 55% | 28% |
-| **Process systems only** | 57 | 51% | 65% | 70% | 56% | 60% | 32% |
+| **All setups** | 104 | 48% | 69% | 53% | 55% | 56% | 28% |
+| **Process systems only** | 56 | 52% | 66% | 71% | 57% | 61% | 32% |
 
 Counts of Y (all setups): C1 50, C2 72, C3 55, C4 57, C5 58, C6 29.
 
@@ -93,19 +93,19 @@ Counts of Y (all setups): C1 50, C2 72, C3 55, C4 57, C5 58, C6 29.
 | Reactors | 11 | 3 | 1 | 15 | 11 |
 | Tanks and level | 7 | 2 | · | 9 | 6 |
 | Separation and crystallization | 5 | 3 | 1 | 9 | 4 |
-| Thermal and heating | 8 | · | · | 8 | 6 |
+| Thermal and heating | 7 | · | · | 7 | 6 |
 | Plant-wide and utilities | 2 | 2 | 2 | 6 | 5 |
 | Generic process models | 6 | · | 4 | 10 | 8 |
 | Climate (adjacent) | 12 | · | · | 12 | 6 |
 | Machines and manufacturing (adjacent) | · | 1 | 25 | 26 | 12 |
 | Energy, traffic and logistics (adjacent) | 5 | 2 | 3 | 10 | 4 |
-| **Total** | 56 | 13 | 36 | 105 | 47 |
+| **Total** | 55 | 13 | 36 | 104 | 47 |
 
 ## Table 4c. Operation by theme (setups)
 
 | Theme | continuous | batch | not applicable or NR |
 |---|---|---|---|
-| Language to MPC or tuning | 19 | 3 | 23 |
+| Language to MPC or tuning | 18 | 3 | 23 |
 | LLM in or above the loop | 22 | 2 | 2 |
 | LLM-facilitated hybrid control | 6 | · | 3 |
 | SCADA, MCP and OPC integration | 4 | 5 | 6 |
@@ -292,7 +292,6 @@ Setups describing a safeguard: 54; challenged (C6 = Y): 29 setups from 17 papers
 | Caracciolo 2026 | S205.1 | NR | offline synthesis, up to 20 iterations per run; LLM not in real-time loop (p.4,p.7) | NR |
 | Caracciolo 2026 | S205.2 | NR | single generation, offline (p.6) | NR |
 | Pershing 2026 | S262.1 | NR | MPC 5 s sample (p.2); LLM on operator request | real time (hardware) |
-| Pershing 2026 | S262.2 | NR | Log updated each 5 s control step; analysis on request (p.3) | real time (hardware) |
 | Christofides 2026 | S269.1 | NR | LLM offline; history 0.02 h (p.33) | NR |
 | Christofides 2026 | S269.3 | NR | 0.5 s controller sampling; LLM not in loop (p.38) | NR |
 | Miyaoka 2026 | S272.1 | NR | MPC dt=0.04 s; agent event-triggered, asynchronous (p.4-5) | NR |
@@ -325,4 +324,4 @@ Setups describing a safeguard: 54; challenged (C6 = Y): 29 setups from 17 papers
 | Khan 2026 | T1046.4 | NR per call; episode wall 23 s Gemini (p.9) | 10 s step; 15/10/50-step episodes (pp.3,6) | NR |
 | Šmídl 2026 | T1053.1 | NR (generic 'hundreds of ms to seconds', p.4) | episodic request-response, no streaming; controller rate NR (p.4-5) | NR |
 
-Setups that ran in real time on hardware or in a plant: 15 (S028.1, S037.2, S038.1, S042.1, S042.2, S042.3, S156.1, S262.1, S262.2, S264.1, S282.1, S282.2, T1042.1, T1042.2, T1042.3).
+Setups that ran in real time on hardware or in a plant: 14 (S028.1, S037.2, S038.1, S042.1, S042.2, S042.3, S156.1, S262.1, S264.1, S282.1, S282.2, T1042.1, T1042.2, T1042.3).

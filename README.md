@@ -14,8 +14,8 @@ It does not contain the papers themselves or their full texts (copyright), or th
 | Read in full | 52 |
 | Moved to context at full text (no tested setup, no control action, or no control layer) | 5 |
 | **Graded papers** | **47** |
-| **Tested setups** (one row per setup) | **107** (105 independent; one water-tank experiment appears in two papers and is counted once) |
-| Process-system setups / adjacent-domain setups | 59 / 48 |
+| **Tested setups** (one row per setup) | **106** (104 independent; one water-tank experiment appears in two papers and is counted once) |
+| Process-system setups / adjacent-domain setups | 58 / 48 |
 
 ## Layout
 

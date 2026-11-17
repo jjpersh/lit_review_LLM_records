@@ -70,7 +70,6 @@ add('S195.4', 'design', 'Shu 2026 VRFT time constant', 'Tanks and level', 'nonll
     'Median rule 10/10 seeds vs LLM 8/10, equal J')
 add('S262.1', 'supervisory', 'Pershing 2026 MPC tuning', 'Thermal and heating',
     safe=('Human approval', 'Operator approves each LLM command (y/n)'))
-add('S262.2', 'operator', 'Pershing 2026 log analysis', 'Thermal and heating')
 add('S272.1', 'supervisory', 'Miyaoka 2026 pass side', 'Machines and manufacturing (adjacent)', safe=('Bounds', 'Constrained tool set'))
 add('S272.2', 'supervisory', 'Miyaoka 2026 ambulance', 'Machines and manufacturing (adjacent)', safe=('Bounds', 'Constrained tool set'))
 add('T0532.1', 'supervisory', 'Wu 2025 robot', 'Machines and manufacturing (adjacent)', 'llm',

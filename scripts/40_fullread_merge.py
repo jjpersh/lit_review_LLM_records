@@ -56,9 +56,15 @@ def main():
             if None in r:  # unquoted comma in a reader's CSV shifts columns
                 errors.append(f"{rid} setup {k}: extra columns {r[None]!r}")
             r = {c: (r.get(c) or "").strip() for c in COLS}
+            drop = False
             for o in overrides:
                 if o["rec_id"] == rid and int(o["setup_no"]) == k:
-                    r[o["field"]] = o["value"]
+                    if o["field"] == "drop":  # setup described but not tested: not a graded setup
+                        drop = o["value"].strip().lower() == "yes"
+                    else:
+                        r[o["field"]] = o["value"]
+            if drop:
+                continue
             r["calibration"], r["date"] = "fullread", (DATE_B if rid in STAGE_B else DATE)
             for f, ok in VALID.items():
                 if r[f] not in ok:
