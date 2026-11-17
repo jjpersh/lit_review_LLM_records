@@ -114,7 +114,7 @@ Process systems only: Non-LLM better 13, Tie 4, Mixed 6, LLM better 4, Not quant
 | Xue and He [@Xue2026ToolCall] | P | Validator | LLM guardrail classifies each tool call | 1 of 1 |
 | He et al. [@He2026Hierarchical] | A | Validator | Schema check, hold previous mode | 1 of 1 |
 | Vieira da Silva et al. [@VieiraDaSilva2025MCP] | A | Validator | Tool argument assertions | 1 of 1 |
-| Vyas and Mercangöz (continuous power) [@Vyas2025AutonomousControl] | A | Validator | Path simulator, LLM validator and reprompter | 1 of 1 |
+| Vyas and Mercangöz (state-machine planning) [@Vyas2025AutonomousControl] | A | Validator | Path simulator, LLM validator and reprompter | 1 of 1 |
 | Wang et al. [@Wang2026RuleAligned] | A | Validator | Rule-equality validator, reprompt, rule fallback | 2 of 2 |
 | Papacharalampopoulos et al. [@Papacharalampopoulos2026Cognitive] | P | Bounds | Bounded mode set, dwell time, fallback | 0 of 2 |
 | Rojas-Ordoñez et al. [@RojasOrdonez2025Relay] | P | Bounds | Output schema, retries, coded fallback | 0 of 1 |
@@ -251,7 +251,7 @@ Each cell: all graded setups, with process systems only in parentheses.
 | Christofides et al. [@Christofides2026AspenAssist] | Methanol recycle plant, flash drum (Aspen Dynamics, sim) | MCP-gated edits to controllers, valves, setpoints; builds RL interface | Pressure held ~1.65 atm; PSV peak 11.05 bar; 36.4% faster RL training | E1 (3) |
 | Gill et al. [@Gill2025FaultHandling] | four-tank batch mixing module, OpenModelica (sim) | agent writes valve and pump commands after a clog; digital-twin and rule gate | 12-15/15 correct actions; 1-10 reprompts per run | E1 (1) |
 | González-Potes et al. [@GonzalezPotes2026Hybrid] | Clean-in-Place system, beverage plant (live) | Read-only LLM conversational analytics/diagnostics over live enriched CIP data (operating plant) | LLM-stated values matched log-derived values with median error below 3% in audited spot checks, e.g. 73 vs 72.96 °C (pp.40-41) | E5 (1) |
-| Hidalgo-Castelo et al. [@HidalgoCastelo2026Local] | precast concrete plant supervision (live) | Voice LLM operator-query assistant with event-driven pre-built context, live concrete plant | Event-driven context cut mean response time 26-31% (complex 23.24 s to 16.47 s) and peak Pi temp 79.6 to 71.2 C; 41/41 queries succeeded … | E5 (1) |
+| Hidalgo-Castelo et al. [@HidalgoCastelo2026Local] | precast concrete plant supervision (live) | Voice LLM operator-query assistant with event-driven pre-built context, live concrete plant | Event-driven context cut mean response time 29-32% (complex 23.24 s to 16.47 s) and peak Pi temp 79.6 to 71.2 C; 41/41 queries succeeded … | E5 (1) |
 | Ibáñez-Espinel et al. [@IbanezEspinel2026Generative] | CSTR (simulated); WWTP benchmark (simulated) | Fine-tuned LLM estimates model parameters for NMPC, CSTR | Same closed-loop error as IPOPT (ISE 0.278 vs 0.283); 2.2 s per call vs 0.14 s | E1 (2) |
 | Kasai and Yoshimura [@Kasai2026STAMP] | filter-circulation piping, text scenario on P&ID model (no sim) | GPT-5.2 writes emergency recovery procedure via STAMP/CAST constraint stage | rejected unsafe 3.0 MPa step 10/10 vs 0/10; mean 4:38 | E1 (2) |
 | Khan et al. [@Khan2026PVC] | CSTR (simulated OpsEnv) | ReAct agent with shadow-plant PVC gate and correction loop (react_shadow) | 0 violations in all shadow cells vs 10.4/episode for react_direct; completion 0.575 vs 0.582 (p.7) | E1 (4) |

@@ -49,11 +49,16 @@ _ORD = {'Succeeded': 0, 'Conditional': 1, 'Failed': 2, 'Not shown': 3}
 import re as _re  # noqa: E402
 
 
+_REFD = {}   # rec_id -> '[n]' from the current build (2026-11-17: reference numbers on Fig. D chips)
+for _line in open('draft/_work/citation_map_current.tsv', encoding='utf-8'):
+    _p = _line.rstrip('\n').split('\t')
+    if len(_p) >= 3 and _p[0].startswith('['):
+        _REFD.setdefault(_p[2].split(' ')[0], _p[0])
+
+
 def _paper_label(r):
-    m = _re.match(r'^(.*?\d{4}[a-z]?)', r['m_label'])
-    lab = m.group(1) if m else r['m_label'].split(' ')[0] + ' 2026'   # Rosenthal's labels carry no year
-    lab = {'Wen 2026': 'Wen 2026 (W&S)', 'Wen 2026b': 'Wen 2026 (tank)',
-           'Vyas 2024': 'Vyas 2025 (on/off)'}.get(lab, lab)   # Stage C: S038 is the 2025 IFAC paper
+    # first author and year; the reference number tells apart papers by the same author and year
+    lab = f"{r['m_label'].split(' ')[0]} {scr[r['rec_id']]['year']} {_REFD.get(r['rec_id'], '')}".strip()
     return lab + ('' if r['process'] else '*')
 
 

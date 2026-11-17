@@ -16,3 +16,4 @@ S017,2,adjacent,barn climate,p.1,same
 S017,3,adjacent,barn climate,p.1,same
 S017,4,adjacent,barn climate,p.1,same
 S262,2,drop,yes,p.3,"automated text analysis is described but no output, measure or count is reported; not a tested setup (author decision 2026-11-17)"
+S028,1,key_result,Event-driven context cut mean response time 29-32% (complex 23.24 s to 16.47 s) and peak Pi temp 79.6 to 71.2 C; 41/41 queries succeeded (p.8-10),p.8,"proofread 2026-11-17: 9.84 vs 14.19 s (30.7%), 31.7% moderate, 29.1% complex"
