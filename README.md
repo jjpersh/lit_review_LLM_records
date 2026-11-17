@@ -64,4 +64,6 @@ The authors thank management at Takeda Development Center Americas for financial
 
 ## Citation and licence
 
-[Add the article citation and DOI once published, and choose a licence for this repository.]
+[Add the article citation and DOI once published.]
+
+The authors' own content (scripts, records, tables and figures) is released under the MIT License (see `LICENSE`). Short passages quoted from the reviewed papers in `extraction/fullread/` remain the property of their authors and publishers and are not covered by this licence.
