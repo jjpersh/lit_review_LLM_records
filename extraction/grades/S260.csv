@@ -1,0 +1,2 @@
+rec_id,setup,evidence,authority,outcome,C1,C2,C3,C4,C5,C6,C1_note,C2_note,C3_note,C4_note,C5_note,C6_note,llm_latency,loop_timing,plant_timing,llm_model,key_result,limitation,operation,domain,adjacent,duplicate_of,recommend_tier
+S260,not graded,,,,,,,,,,,,,,,,,,,,"Tutorial with no tested setup: framework, design dimensions and two environments, no performance results reported (p.2, p.5)",,,,,,context

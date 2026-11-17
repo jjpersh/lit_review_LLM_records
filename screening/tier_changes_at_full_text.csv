@@ -1,0 +1,10 @@
+rec_id,tier,reason
+SC02,context,"Core paper moved to context: full text not obtainable (interlibrary loan failed, 2026-11-12)"
+S040,context,"Core paper moved to context: full text not obtainable (Zenodo deposit only, no PDF)"
+T0380,context,"Core paper moved to context: full text not obtainable (Zenodo deposit only, no PDF)"
+T0392,context,"Core paper moved to context: full text not obtainable (Zenodo deposit only, no PDF)"
+S161,context,"Core paper moved to context at full text (2026-11-13): user study of fault diagnosis on a desktop 3D printer; no control layer or control action tested (pp.8-10)"
+S206,context,"Core paper moved to context at full text (2026-11-13): LLM writes process-fault diagnoses for operators; no control action generated or tested (pp.20-22); screening rule: diagnosis with no control action"
+S260,context,"Core paper moved to context at full text (2026-11-13): tutorial with no tested setup of its own; reports no performance figures (pp.2, 5); builds on S022"
+S296,context,"Core paper moved to context at full text (2026-11-13): practitioner perspective with composite scenarios and no reported test; advisory monitoring briefs, no control action (pp.2-4, 6, 9)"
+T0351,context,"Core paper moved to context at full text (2026-11-13): MCP link from a local LLM to a SQL database; no control layer, one query demonstration, no numbers"

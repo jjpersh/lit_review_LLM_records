@@ -1,0 +1,22 @@
+study_setup,loop_period_s,llm_latency_low_s,llm_latency_high_s,note
+"Arif 2025: live PID retuning, servo (hardware; adjacent)",0.002,,,loop = 500 Hz inner PID
+"Wen 2026: LLM retunes PID, water tank",0.5,0.13,3.01,mean 0.30 s
+"Rojas-Ordoñez 2025: LLM relay, oven (sim)",1.0,,,
+Ibáñez-Espinel 2026: LLM estimates NMPC parameters,,2.18,6.94,per call; NMPC solve 0.13-0.23 s
+Vyas 2026: recovery action agent (sim),,1.9,3.5,per action
+Schall 2026: advisory agent (offline),,2,8,advisory
+González-Potes 2026: CIP assistant (plant),,1,2,"advisory, median"
+Hidalgo-Castelo 2026: operator queries (plant),20.0,9.84,16.47,advisory; 20 s refresh cycle
+"Pershing 2026: LLM tunes MPC, TCLab",5.0,,,
+"Khan 2026: shadow-plant agents, CSTR (sim)",10.0,23,1835,whole episode
+"Vyas 2025: LLM heater power, TCLab (hardware)",30.0,10.58,72.69,plant did not wait
+"Zhang 2025: regime selection, numerical system (sim)",,47.3,47.3,identification only
+"Nozari 2026: supervisory agent, bioreactor (sim)",300.0,2.9,2.9,
+"Nogueira 2026: LLM operator agents, barn (sim; adjacent)",60-300,0.1,1.0,
+"Rosenthal 2026: setpoint agent, distillation (sim)",300.0,11.3,278,median 15 s
+He 2026: LLM sets ramp-metering modes (sim; adjacent),180.0,1.6,1.6,
+He 2026: LLM sets VPP dispatch modes (sim; adjacent),1800.0,0.4,0.4,
+"Song 2026: LLM re-tunes CBF-MPC, gripper (sim; adjacent)",0.04,2.4,2.4,on demand; MPC step shown
+Wang 2026: SLM picks heater power (sim; adjacent),,3.84,5.28,per step
+Raghavan 2025: LLM calls home-energy MPC (sim; adjacent),900.0,0.7,2.8,per query
+Caccia 2026: local SLM writes MPC cost (sim; adjacent),,3.38,9.89,once per goal

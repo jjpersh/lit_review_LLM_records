@@ -1,0 +1,296 @@
+
+=== S002: old 1 / new 2 setups
+  old1: LLM proposes PID gains for FOPDT/SOPDT loops; acceptance criteria retain or reject (offline design); hosted LL
+  new1: Hosted/unadapted LLM iterative PID tuning with dynamic prompts, gated by closed-loop sim acceptance  [E1/Propose/Conditional]
+  new2: Qwen3-0.6B fine-tuned by SFT + PI-GRPO (stability-gated reward), same sim acceptance gate  [E1/Propose/Succeeded]
+  [1->1] C4: Y -> N
+      old: 200 test cases, seeds, models named (p.15-17)
+      new: Single run per case, no API seed (p.50); model IDs, temp 0.1, prompt template given (p.10,p.50)
+
+=== S004: old 1 / new 1 setups
+  old1: GPT-5.4 generates control structure, simulation and BO tuning code for a gas preheater (design-time)
+  new1: LLM-generated pairing, PI/feedforward controller and BO tuning code for simulated gas preheater  [E1/Set targets/Succeeded]
+  [1->1] authority: Propose -> Set targets
+  [1->1] outcome: Not shown -> Succeeded
+
+=== S007: old 1 / new 4 setups
+  old1: Multi-agent LLMs select controller type and tune gains with actor-critic loop (DC motor, ball and beam, pendul
+  new1: DC motor position: LLM agents tune P gain offline via simulation loop  [E1/Set targets/Conditional]
+  new2: Ball and beam: LLM agents tune FSF gains over 3 scenarios  [E1/Set targets/Conditional]
+  new3: Inverted pendulum: LLM agents tune PID, Juror switches to FSF; 3 scenarios  [E1/Set targets/Conditional]
+  new4: Double inverted pendulum: FSF gain tuning by 5 different LLMs  [E1/Set targets/Conditional]
+  [1->3] authority: Propose -> Set targets
+  [1->3] outcome: Succeeded -> Conditional
+  [1->3] C4: Y -> N
+      old: five LLMs compared, Monte Carlo 100 runs (p.7, 9)
+      new: Single design run per scenario; MC on final gains only; model not named (p.7-8)
+
+=== S013: old 1 / new 1 setups
+  old1: LLM converts natural-language specs to numeric targets; PSO/DE tunes PID; LLM explains results; user accepts d
+  new1: LLM turns NL spec into targets for PSO/DE PID tuner plus advisory result-evaluation chat  [E1/Propose/Conditional]
+  [1->1] outcome: Not shown -> Conditional
+  [1->1] C2: N -> Y
+      old: metrics computed by tool, no evaluation
+      new: Settling, rise time, overshoot, PM, GM from single screenshot (Fig.3 p.5)
+
+=== S016: old 1 / new 2 setups
+  old1: Agentic LLM proposes fed-batch feed moves via fuzzy multi-objective optimization on an adaptive digital twin; 
+  new1: Full framework: GPT-4.1 supervisory agent proposes setpoints, Safety Governor gates them  [E1/Propose/Succeeded]
+  new2: No-Safety ablation: LLM agent proposal sent to regulatory layer without Safety Governor  [E1/Set targets/Failed]
+  [1->1] outcome: Conditional -> Succeeded
+  [1->1] C6: N -> Y
+      old: Safety Governor present, not tested with bad proposals
+      new: Governor repaired up to 19.8% and fell back on 1.8% of proposals in S6, 0 residual violations (p.37)
+
+=== S017: old 1 / new 4 setups
+  old1: LLM operator agents replace PI constraint defenders in an advanced regulatory control (selector) architecture 
+  new1: Arch C: Qwen operator agents in ARC selector chain + Claude orchestrator tuner, 4-day scenario  [E1/Act/Conditional]
+  new2: Arch B: Qwen operator agents in ARC selector chain, rule orchestrator, Case IIB ramp  [E1/Act/Succeeded]
+  new3: Arch C: Qwen operators + Claude orchestrator tuner, Case IIB ramp  [E1/Act/Succeeded]
+  new4: Arch D ablation: single Qwen model sets fan and heater directly, Case IIB ramp  [E1/Act/Failed]
+
+=== S020: old 1 / new 3 setups
+  old1: LLM selects controller mode from bounded set and writes audit rationale; rule-based dwell-time switching
+  new1: LLM selects bounded controller mode over residual-based switched LQI, coupled oscillator + variants  [E1/Set targets/Conditional]
+  new2: LLM selects bounded PI mode for 1-D thermal steel-sheet heating with residual-based supervisor  [E1/Set targets/Conditional]
+  new3: LLM audit call on RLS adaptive fault-tolerant controller (AFTC+LLM)  [E1/Advise/Not shown]
+  [1->1] outcome: Not shown -> Conditional
+  [1->1] C4: N -> Y
+      old: temperature 0, prompt in appendix; only 3 LLM calls, no repeats, model version not given
+      new: Monte Carlo N=50 x6 noise levels (LLM role unclear); prompt App. A, temp 0, Claude Sonnet (p.19, p.24, p.28)
+
+=== S022: old 1 / new 2 setups
+  old1: Multi-agent LLM framework turns detected faults into recovery actions using a knowledge graph and simulation v
+  new1: Mixing module: LLM plan + on/off actuator set, simulation+deterministic validation gate  [E1/Propose/Conditional]
+  new2: CSTR: LLM setpoint adaptation for 3 PID loops, simulation+validation gate, fallback  [E1/Propose/Conditional]
+  [1->1] authority: Set targets -> Propose
+
+=== S028: old 1 / new 1 setups
+  old1: Local LLM (Mistral-7B) on edge hardware answers operator queries over OPC UA/MQTT and pre-builds event-driven 
+  new1: Voice LLM operator-query assistant with event-driven pre-built context, live concrete plant  [E5/Advise/Succeeded]
+  [1->1] evidence: E4 -> E5
+  [1->1] C1: Y -> N
+      old: previous reactive architecture (p.8, 12)
+      new: Main comparison is LLM vs earlier reactive LLM [10]; manual navigation only in one case study, from [10] (p.11)
+  [1->1] C5: Y -> N
+      old: query success and failure rates (p.7)
+      new: 100% success over 41 queries counts valid (non-timeout) responses only, not correctness (p.7,10)
+
+=== S030: old 1 / new 3 setups
+  old1: Multi-agent LLM pipeline proposes operator actions from P&ID-grounded plant context; deterministic validator b
+  new1: TEP fault snapshots (3 scenarios): LLM proposes actions, deterministic P&ID validator gates  [E2/Propose/Conditional]
+  new2: PolyReactor batch reactor (stuck cooling valve): LLM proposes, P&ID validator gates  [E2/Propose/Succeeded]
+  new3: Dryer, minimal P&ID (stuck heating valve): LLM proposes, P&ID validator gates  [E2/Propose/Conditional]
+  [1->1] evidence: E1 -> E2
+  [1->1] C1: Y -> N
+      old: raw-data baseline context and ablations (p.14)
+      new: Only LLM-vs-LLM prompt levels (baseline/B0-B3); no non-LLM method compared (p.9,12)
+
+=== S032: old 3 / new 3 setups
+  old1: C2 ungated agent writes composition setpoints over linear MPC (Column A)
+  old2: C3 gated agent: forked-twin counterfactual gate, 9 constraints
+  old3: Agent over PID with no MPC layer (demonstration scope)
+  new1: C2: ungated LLM supervisor sets composition setpoints over linear-MPC backend (16-OP grid)  [E1/Set targets/Conditional]
+  new2: C3: LLM supervisor plus forked-twin counterfactual safety gate over MPC backend  [E1/Propose/Conditional]
+  new3: C2_pid: ungated LLM supervisor directly over unmodified PID regulatory layer (MPC-free)  [E1/Set targets/Failed]
+  [2->2] authority: Set targets -> Propose
+  [3->3] C5: Y -> N
+      old: operable in 50/50 cells (p.2)
+      new: NR; only cell operability 50/50 (p.23)
+
+=== S037: old 1 / new 3 setups
+  old1: Agentic LLM pipeline for FSM fault-recovery planning and continuous heater temperature control (physical rig a
+  new1: LLM action agent plans FSM fault-to-normal paths, checked by path simulator + validator + reprompter  [E2/Propose/Conditional]
+  new2: Physical dual-TCLab, fan disturbance: LLM sets continuous q1,q2 via LLM temp/power validators  [E3/Act/Conditional]
+  new3: Digital twin of dual-TCLab, same disturbance: LLM sets continuous q1,q2, cloud and local LLMs  [E1/Act/Conditional]
+  [1->2] C1: N -> Y
+      old: no non-LLM baseline
+      new: PID on same hardware; tuning method not reported (p.15 Table 5, Fig. 8)
+  [1->2] C2: N -> Y
+      old: not extracted
+      new: TW-MAE, RMSE, reprompt counts (Table 5 p.15)
+  [1->2] C4: Y -> N
+      old: repeated FSM trials by graph size (Table 3, p.12)
+      new: Single run; GPT-3.5, temp 0, top_p 0.1, prompts App. B, code link (pp.7,18,22)
+
+=== S038: old 1 / new 1 setups
+  old1: CrewAI agents (monitor, actor, validator, reprompter) run on/off heater control on TCLab hardware
+  new1: LLM operator+validator+reprompter on/off thermostat (25-27 C) on physical TCLab  [E3/Act/Conditional]
+
+=== S041: old 1 / new 2 setups
+  old1: LLM-driven multimodal identification of the current operating condition selects the matching predictive model 
+  new1: Numerical 10-condition system: LLM picks stored SINDy model for MPC after ApEn+KNN  [E1/Set targets/Succeeded]
+  new2: CSTR (feed-flow conditions): LLM picks stored SINDy model for MPC, 1->2->3 switch  [E1/Set targets/Succeeded]
+
+=== S042: old 1 / new 3 setups
+  old1: Prompt-only, SQL-assisted and prediction-assisted LLMs set heater and fan directly on a physical greenhouse te
+  new1: Prompt-only GPT-4o agent sets heater duty and fan directly, with/without fan-penalty prompt  [E3/Act/Succeeded]
+  new2: SQL-assisted GPT-4o agent queries past experiment DB (incl. MPC runs) then sets heater/fan  [E3/Act/Succeeded]
+  new3: Prediction-assisted GPT-4o agent scores candidate actions with Linear/LSTM/HAM predictor  [E3/Act/Conditional]
+  [1->1] outcome: Conditional -> Succeeded
+
+=== S048: old 1 / new 1 setups
+  old1: Local LLM reads temperature and outputs a binary relay action each step, from a plain-English hysteresis polic
+  new1: LLM as direct on/off relay controller with schema validator + retry + coded fallback  [E1/Act/Conditional]
+  [1->1] outcome: Succeeded -> Conditional
+
+=== S156: old 1 / new 1 setups
+  old1: Rule-based deterministic supervisor runs CIP batch safety; LLM assistant gives diagnostic and maintenance advi
+  new1: Read-only LLM conversational analytics/diagnostics over live enriched CIP data (operating plant)  [E5/Advise/Succeeded]
+  [1->1] evidence: E4 -> E5
+  [1->1] outcome: Conditional -> Succeeded
+  [1->1] C2: N -> Y
+      old: none
+      new: Stage-spec compliance, label consistency, reaction time (pp.37-39); describe PLC process/rule layer, not LLM effect
+
+=== S178: old 1 / new 2 setups
+  old1: Fine-tuned Qwen2.5 (LoRA) estimates uncertain NMPC parameters from trajectory windows (CSTR, WWTP)
+  new1: CSTR: fine-tuned LLM estimates model parameters for NMPC (8 LLM/hybrid variants)  [E1/Set targets/Succeeded]
+  new2: WWTP (MIMO): fine-tuned LLM estimates model parameters for NMPC (8 LLM/hybrid variants)  [E1/Set targets/Conditional]
+  [1->1] outcome: Conditional -> Succeeded
+
+=== S180: old 1 / new 3 setups
+  old1: LLM agents build PBM models and propose NMPC formulations for batch K2SO4 crystallization (design-time)
+  new1: CS3: LLMs propose NMPC formulation/tuning offline; authors implement; simulated crystallizer  [E1/Propose/Conditional]
+  new2: CS2: LLMs build/calibrate/update moment PBMs from lab crystallization and dissolution data  [E2/Advise/Conditional]
+  new3: CS1: LLMs build ATR-FTIR calibration (soft sensor) models from lab spectra  [E2/Advise/Succeeded]
+
+=== S193: old 1 / new 4 setups
+  old1: Open-weight LLMs judge which PI gain set gives lower IAE (quad-tank, recycle reactor, 3x3 plant)
+  new1: LLM ranks two PI gain sets by IAE (quadruple tank); Q/E/T/X/S info variants  [E2/Advise/Failed]
+  new2: LLM ranks two PI gain sets by IAE (series CSTR with recycle); Q/E/T/X/S info variants  [E2/Advise/Failed]
+  new3: LLM ranks two PI gain sets by IAE (synthetic 3x3 cyclic plant); Q/E/T/X/S info variants  [E2/Advise/Failed]
+  new4: LLM proposes 8 PI gain sets per seed with/without J feedback (P2); quadruple tank  [E1/Set targets/Conditional]
+  [1->1] evidence: E1 -> E2
+  [1->1] C2: Y -> N
+      old: IAE/ISE ranking labels (p.1)
+      new: Ranking accuracy vs simulator IAE labels; no closed-loop metric of LLM-chosen controller (p.11)
+
+=== S195: old 3 / new 4 setups
+  old1: Scaffolded LLM tunes single-loop CSTR PI
+  old2: Scaffolded LLM proposes structural prior for coupled quad-tank PI, refined by Nelder-Mead (hybrid)
+  old3: LLM proposes VRFT reference-model time constant from open-loop rise times
+  new1: CSTR single loop: scaffolded LLM iteratively proposes PI gains with closed-loop cost feedback  [E1/Set targets/Conditional]
+  new2: Quadruple-tank 2x2: scaffolded LLM proposes PI gains over 18 rounds, then Nelder-Mead refines (hybrid)  [E1/Set targets/Conditional]
+  new3: Synthetic 3x3 cyclic coupled plant: scaffolded LLM gains plus Nelder-Mead refinement  [E1/Set targets/Succeeded]
+  new4: Quadruple-tank: LLM proposes VRFT reference time constant tau from rise-time summaries, then refinement  [E1/Set targets/Conditional]
+  [1->1] authority: Propose -> Set targets
+  [1->1] outcome: Failed -> Conditional
+  [1->1] C5: Y -> N
+      old: usable proposal in 8/10 seeds (p.1)
+      new: no rate of LLM decision quality on CSTR (p.12)
+  [2->2] authority: Propose -> Set targets
+  [3->4] authority: Propose -> Set targets
+  [3->4] outcome: Failed -> Conditional
+
+=== S203: old 4 / new 4 setups
+  old1: T1 direct LLM control, water tank
+  old2: T2 numeric-constrained direct control, water tank
+  old3: T3 LLM tunes PID gains, water tank (SISO)
+  old4: T4 LLM tunes PID gains, CSTR (MIMO)
+  new1: Trial 1: LLM as direct controller, free-text output (water tank)  [E1/Act/Failed]
+  new2: Trial 2: LLM as direct controller, numeric-only output 0-1 (water tank)  [E1/Act/Failed]
+  new3: Trial 3: LLM retunes SISO PID gains every 0.5 s (water tank)  [E1/Set targets/Conditional]
+  new4: Trial 4: LLM retunes multi-loop PID gains (CSTR, temperature and concentration)  [E1/Set targets/Failed]
+  [4->4] C1: NR -> N
+      old: no comparator described
+      new: no comparator reported for CSTR (p.4-5)
+
+=== S262: old 1 / new 2 setups
+  old1: LLM proposes GEKKO MPC tuning from operator language, operator approves (TCLab 2x2)
+  new1: LLM turns operator NL requests into GEKKO MPC tuning JSON; operator y/n approval; TCLab  [E3/Propose/Succeeded]
+  new2: LLM writes text analysis of controller performance from process logs (advisory)  [E3/Advise/Not shown]
+  [1->1] outcome: Conditional -> Succeeded
+
+=== S272: old 1 / new 2 setups
+  old1: LLM agent reads messages via MCP and resynthesizes MPC objectives and constraints (CARLA driving)
+  new1: LLM agent attaches steering-preference primitive to Fourier-MPPI MPC (obstacle pass side)  [E1/Set targets/Succeeded]
+  new2: LLM agent switches lane/speed MPC primitives for ambulance yielding and recovery  [E1/Set targets/Succeeded]
+  [1->1] outcome: Conditional -> Succeeded
+
+=== S282: old 1 / new 2 setups
+  old1: LLM agents call OPC UA read/write tools to change machine parameters from operator text or speech (demonstrato
+  new1: LLM tool-calling agent writes S7-1500 PLC variables via OPC UA; 50 commands, 5 LLMs  [E3/Set targets/Succeeded]
+  new2: Voice LLM agent sets parameters and triggers sequences on industrial spray-coating robot cell  [E3/Set targets/Not shown]
+
+=== S315: old 1 / new 1 setups
+  old1: Trust-gated MCP middleware scores sensor-data quality and allows, restricts or blocks LLM control actions (sim
+  new1: LLM agent proposes discrete actions behind data-trust gate (Trust-Gated MCP); 8 fault scenarios  [E1/Propose/Succeeded]
+  [1->1] authority: Act -> Propose
+  [1->1] C1: Y -> N
+      old: same agent without the trust gate (p.3)
+      new: No non-LLM controller and no ungated arm; gate behaviour only (p.3-4)
+
+=== T0532: old 1 / new 2 setups
+  old1: LLaMA-8B turns human instructions into disturbance forecasts for MPC; fine-tuned online with DPO (robot tracki
+  new1: LLM (L2D) forecasts wind disturbance from text for MPC; 2D robot astroid tracking  [E1/Set targets/Succeeded]
+  new2: LLM (L2D) forecasts PV/demand disturbance from text for battery-charging MPC  [E1/Set targets/Succeeded]
+  [1->1] outcome: Conditional -> Succeeded
+  [1->1] C2: Y -> N
+      old: MPC cost
+      new: Trajectory plot only, no numeric tracking error (p.5-6)
+
+=== T0665: old 1 / new 1 setups
+  old1: LLM with adaptive RAG explains MPC greenhouse decisions to growers at operator and supervisor levels
+  new1: ARAG chatbot (RAG + GPT-4o) explaining offline greenhouse MPC trajectories to growers  [E1/Advise/Not shown]
+  [1->1] outcome: Succeeded -> Not shown
+  [1->1] C5: Y -> N
+      old: relevance scores across questions (p.9)
+      new: Relevance is a mean similarity-type score; no correct/incorrect rate of explanations (p.9)
+
+=== T0779: old 1 / new 3 setups
+  old1: LLM proposes and refines mode-switching controller architectures (sensors, modes) evaluated by RL in simulatio
+  new1: point-to-disk, LLM-evolved MSC designs trained by MSC-PPO (CostlyGPS/CheapGPS)  [E1/Set targets/Succeeded]
+  new2: RF-DMC rangefinder cartpole/cup-catch/finger-spin, LLM-evolved MSC + MSC-PPO  [E1/Set targets/Succeeded]
+  new3: clutter-nav: LLM-designed multi-mode radar + MPPI planner configurations  [E1/Set targets/Succeeded]
+  [1->1] authority: Propose -> Set targets
+  [1->1] C3: Y -> N
+      old: actuation noise (p.22)
+      new: only built-in sensor/actuation noise; no disturbance or fault tests (p.22)
+
+=== T1042: old 1 / new 3 setups
+  old1: GPT-4.1-mini agents monitor and retune PID gains live on a Quanser QUBE-Servo 2
+  new1: LLM agent live PID gain tuning on servo hardware with guided stepwise prompt  [E3/Set targets/Conditional]
+  new2: LLM agent live PID gain tuning on servo hardware with unguided prompt (safe ranges only)  [E3/Set targets/Conditional]
+  new3: Chat agent answers operator questions on tuning (Kp change; load torque +10%; sampling rate)  [E3/Advise/Not shown]
+  [1->1] C5: N -> Y
+      old: not quantified
+      new: Partial: ~10 runs with failures only reported for unguided arm; guided arm implicitly 0 failures (p.15)
+
+=== T1046: old 1 / new 4 setups
+  old1: LLM agents propose process-operation actions; a shadow-plant simulation validates and feeds back corrections b
+  new1: ReAct agent with shadow-plant PVC gate and correction loop (react_shadow)  [E1/Propose/Conditional]
+  new2: Plan-and-Execute agent with shadow-plant PVC gate (plan_exec_shadow)  [E1/Propose/Conditional]
+  new3: ReAct agent writing setpoints directly to plant without gate (react_direct)  [E1/Set targets/Failed]
+  new4: Plan-and-Execute agent writing setpoints directly without gate (plan_exec_direct)  [E1/Set targets/Conditional]
+  [1->1] authority: Set targets -> Propose
+  [1->1] outcome: Succeeded -> Conditional
+  [1->1] C1: Y -> N
+      old: same agents without PVC (direct) (p.7, 10)
+      new: Only same agent without gate; no PID/MPC/optimizer baseline (p.5)
+
+=== T1053: old 1 / new 1 setups
+  old1: Claude agent commissions a PMSM drive through an MCP server that wraps identification routines and controller 
+  new1: Claude agent via MCP server + CLAUDE.md, engineer gate; tunes FCS-MPC/PI of simulated IPMSM  [E1/Propose/Succeeded]
+  [1->1] authority: Set targets -> Propose
+  [1->1] outcome: Conditional -> Succeeded
+  [1->1] C1: N -> Y
+      old: no comparator
+      new: single author hand-tune of lambda_sw (Table II p.6); no optimizer or systematic search
+  [1->1] C2: N -> Y
+      old: none
+      new: d-ripple A pp, fsw, constraint satisfaction (Table II p.6); speed overshoot, peak current (p.5)
+  [1->1] C3: N -> Y
+      old: none
+      new: load ramp profile, field-weakening condition in sweep (p.5); no fault or mismatch test
+
+TOTAL paired scored fields: 351; agreed 294 (83.8%)
+  evidence: 35/39 (90%)
+  authority: 28/39 (72%)
+  outcome: 22/39 (56%)
+  C1: 32/39 (82%)
+  C2: 33/39 (85%)
+  C3: 37/39 (95%)
+  C4: 35/39 (90%)
+  C5: 34/39 (87%)
+  C6: 38/39 (97%)

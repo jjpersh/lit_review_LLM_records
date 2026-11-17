@@ -1,0 +1,17 @@
+rec_id,setup_no,field,value,page,reason
+S002,1,C4,Y,p.50,"200 seeded benchmark cases with Pass@1 rates, temperature/top-p, model IDs and seeds given; one run per case (partial evidence counts as Y)"
+S002,1,C4_note,"200 seeded cases, one run each, rates reported; temp 0.1, top-p 0.1, model IDs, local seed 42 (p.50); no per-case repeats",p.50,note corrected with the grade
+S002,2,C4,Y,p.50,"same evaluation design as setup 1 (consistency)"
+S002,2,C4_note,"200 seeded cases, one run each, rates reported; full training and decoding settings (pp.43-44, p.50); no per-case repeats",p.50,note corrected with the grade
+S007,1,C4_note,"Single design run; GPT-4o mini named as the model selected for the study (p.9); prompts in appendix",p.9,reader said model not named; p.9 names GPT-4o mini
+S007,2,C4_note,"One LLM design run per scenario; 100 MC runs on final gains only; GPT-4o mini (p.9)",p.9,reader said model not named; p.9 names GPT-4o mini
+S007,3,C4_note,"Single design run per scenario; MC on final gains only; GPT-4o mini (p.9)",p.9,reader said model not named; p.9 names GPT-4o mini
+S020,1,C4,N,"p.19, p.24","Monte Carlo (50 seeds x 6 noise levels) tests the switching framework; the paper does not show the LLM was called in those runs; the LLM made 3 calls in a single run"
+S020,1,C4_note,"MC N=50 x6 noise levels tests the framework, LLM involvement not shown; LLM path is one run with 3 calls (pp.19, 24)","p.19, p.24",note corrected with the grade
+S262,1,outcome,Conditional,p.4,"requested 38-42 C band briefly exceeded because SPHI/SPLO are soft constraints; redundant commands issued (p.4)"
+S037,1,C1,N,pp.9-12,"optimal shortest-path length is a reference value, no non-LLM planner was run (reader note); rubric: a comparator must be run"
+S037,1,C1_note,"Optimal shortest-path length used as a reference only; no non-LLM planner run (pp.9-12)",pp.9-12,note with the grade
+S017,1,adjacent,barn climate,p.1,"livestock-barn ventilation and heating: climate control, treated like greenhouse and building climate for the process-only sensitivity"
+S017,2,adjacent,barn climate,p.1,same
+S017,3,adjacent,barn climate,p.1,same
+S017,4,adjacent,barn climate,p.1,same

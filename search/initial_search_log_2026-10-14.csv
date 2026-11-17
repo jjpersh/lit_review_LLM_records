@@ -1,0 +1,56 @@
+#,Source,Query string,Total hits reported,Records retrieved (top-ranked)
+1,Database query (scite),"(""large language model"" OR LLM) AND (""Tennessee Eastman"" OR ""fault diagnosis"" OR ""alarm management"") AND ""chemical process""",38,15
+2,Database query (scite),"(""large language model"" OR LLM) AND (""process control"" OR ""chemical process"") AND (review OR survey)",1058,20
+3,Database query (scite),"(""large language model"" OR LLM OR agentic) AND (""model predictive control"" OR ""PID tuning"" OR ""controller tuning"") AND (chemical OR process)",6206,20
+4,Database query (scite),"(""large language model"" OR ""large language models"" OR LLM OR LLMs OR GPT-4 OR ChatGPT) AND ""process control""",44788,50
+5,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT OR GPT-4) AND (""model predictive control"" OR MPC)",54133,50
+6,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT OR GPT-4) AND (PLC OR ""IEC 61131"" OR ""structured text"" OR ""ladder logic"" OR ""control logic"") AND ""code generation""",910,40
+7,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT OR GPT-4) AND (PID OR ""controller tuning"" OR ""controller design"") AND (process OR plant OR loop)",79094,50
+8,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT OR GPT-4) AND (SCADA OR ""distributed control system"" OR DCS OR ""OPC UA"" OR ""industrial automation"")",337320,50
+9,Database query (scite),(title/abstract-field filter; see Protocol),3109,100
+10,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""chemical process"" OR ""chemical plant"" OR ""process industry"" OR ""process industries"") AND (control OR operation)",705,50
+11,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (alarm OR ""abnormal situation"" OR ""operator support"" OR ""control room"") AND (plant OR process)",5711,50
+12,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT) AND (""fault detection"" OR ""fault diagnosis"" OR ""root cause"") AND (""Tennessee Eastman"" OR ""chemical process"" OR ""process monitoring"")",217,50
+13,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (bioprocess OR fermentation OR bioreactor OR crystallization OR ""pharmaceutical manufacturing"" OR ""continuous manufacturing"") AND control",4158,50
+14,Database query (scite),"(""LLM agent"" OR ""LLM agents"" OR ""agentic"" OR ""multi-agent"") AND (""process control"" OR ""industrial control"" OR ""control loop"" OR ""closed-loop control"") AND (""large language model"" OR LLM)",2226,50
+15,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""wastewater treatment"" OR ""water treatment"" OR ""distillation"" OR ""refinery"" OR ""boiler"" OR ""power plant"") AND control",17145,50
+16,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT) AND (""TCLab"" OR ""temperature control lab"" OR ""quadruple tank"" OR ""four-tank"" OR CSTR OR ""continuous stirred tank"")",215,50
+17,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""control engineering"" OR ""control theory"" OR ""control systems"") AND (benchmark OR evaluation OR capability)",4108,50
+18,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""reinforcement learning"") AND (""process control"" OR ""chemical process"" OR ""industrial process"")",672,50
+19,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""soft sensor"" OR ""system identification"" OR ""state estimation"" OR ""process modeling"") AND (process OR industrial)",4514,50
+20,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""digital twin"") AND (""process control"" OR ""chemical process"" OR ""process plant"" OR ""industrial process"")",457,50
+21,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (hallucination OR safety OR verification OR guardrail) AND (""process control"" OR ""industrial control system"" OR ""safety-critical control"")",1019,50
+22,Database query (scite),"(""vision-language model"" OR ""multimodal large language model"" OR GPT-4V) AND (""P&ID"" OR ""piping and instrumentation"" OR ""process flow diagram"" OR ""control narrative"")",209,40
+23,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""batch process"" OR ""batch control"" OR ""ISA-88"" OR ""recipe"") AND (plant OR process OR manufacturing) AND control",7338,40
+24,Database query (scite),"(""time series foundation model"" OR ""foundation model"" OR ""pretrained transformer"") AND (""process control"" OR ""model predictive control"" OR ""chemical process"")",924,40
+25,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""setpoint"" OR ""set-point"" OR ""supervisory control"" OR ""real-time optimization"") AND (process OR plant)",1132,50
+26,Database query (scite),"(""small language model"" OR ""open-weight"" OR ""on-premise"" OR ""local LLM"" OR Llama OR Qwen) AND (""process control"" OR ""industrial control"" OR ""control system"" OR ""plant operation"")",15654,40
+27,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT) AND (""fault detection"" OR ""fault diagnosis"" OR ""root cause"") AND (""Tennessee Eastman"" OR ""chemical process"" OR ""process monitoring"")",217,50
+28,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT) AND (""TCLab"" OR ""temperature control lab"" OR ""quadruple tank"" OR ""four-tank"" OR CSTR OR ""continuous stirred tank"")",215,50
+29,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""chemical process"" OR ""chemical plant"" OR ""process industry"" OR ""process industries"") AND (control OR operation)",705,50
+30,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""reinforcement learning"") AND (""process control"" OR ""chemical process"" OR ""industrial process"")",672,50
+31,Database query (scite),"(""large language model"" OR LLM OR LLMs) AND (""digital twin"") AND (""process control"" OR ""chemical process"" OR ""process plant"" OR ""industrial process"")",457,50
+32,Database query (scite),"(""large language model"" OR LLM OR LLMs OR ChatGPT OR GPT-4) AND (PLC OR ""IEC 61131"" OR ""structured text"" OR ""ladder logic"" OR ""control logic"") AND ""code generation""",910,50
+33,Database query (scite),"title:""Tennessee Eastman"" + LLM terms",3,3
+34,Database query (scite),"LLM OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT",48,48
+35,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",754,100
+36,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",1345,100
+37,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",1183,100
+38,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",269,100
+39,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",399,100
+40,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",211,100
+41,Database query (scite),"(LLM OR LLMs OR ""large language model"" OR ""large language models"" OR agentic) AND (control OR process OR plant)",14036,100
+42,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",62027,100
+43,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",666,100
+44,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",507,100
+45,Database query (scite),"(LLM OR LLMs OR ""large language model"" OR ""large language models"" OR agentic) AND (plant OR process OR ""control room"" OR industrial)",5449,100
+46,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",38,38
+47,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",5091,100
+48,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",263,100
+49,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",216,100
+50,Database query (scite),"LLM OR LLMs OR ""large language model"" OR ""large language models"" OR ChatGPT OR GPT OR agentic OR ""language model""",143,100
+51,Database query (scite),"(LLM OR LLMs OR ""large language model"" OR ""large language models"" OR agentic) AND control",839,100
+52,Citation chasing,"CITATION CHASING round 1: forward citations of 10 seeds (Vyas IFAC+arXiv, ControlAgent, FaultExplainer, Kevian, LLM4PLC, Koziolek ChatGPT-PLC, Song industrial control, Decardi-Nelson, Wen water tank); title-prescreened",225,96
+53,Citation chasing,"CITATION CHASING round 2a: forward citations of 10 seeds (Vyas FTC JPC, Gill ETFA, Spec2Control, Agents4PLC TSE, Galitsky, Koziolek RAG, Ares-Milian, AgenticControl, Liang&Sin MCP FDD, AgentTwin); title-prescreened",37,37
+54,Citation chasing,"CITATION CHASING round 2b: backward (reference lists) of 8 reviews (Alviz-Meza, Jiang, Aghaee, Nosrati EAAI+arXiv, Woo KJChE, Thuan, Gopaluni[0 resolved]); 2022+, title-prescreened",688,79
+55,Known-item / seed,Seed / known-item records (from initial scoping of the 3 example reviews and first gap check),3,3
